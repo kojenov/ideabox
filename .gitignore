@@ -1,0 +1,6 @@
+.vagrant/
+ubuntu*.log
+
+*.ser
+*.class
+

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+                      http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+  version="3.1"
+  metadata-complete="true">
+
+    <description>
+      Insecure deserialization demo
+    </description>
+    <display-name>Insecure deserialization</display-name>
+
+    <servlet>
+      <servlet-name>Factory</servlet-name>
+      <servlet-class>Factory</servlet-class>
+    </servlet>
+
+    <servlet>
+      <servlet-name>Hacktory</servlet-name>
+      <servlet-class>Hacktory</servlet-class>
+    </servlet>
+
+    <servlet>
+      <servlet-name>Store</servlet-name>
+      <servlet-class>Store</servlet-class>
+    </servlet>
+
+    <servlet>
+      <servlet-name>SecureStore</servlet-name>
+      <servlet-class>SecureStore</servlet-class>
+    </servlet>
+
+
+    <servlet-mapping>
+        <servlet-name>Factory</servlet-name>
+        <url-pattern>/Factory/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>Hacktory</servlet-name>
+        <url-pattern>/Hacktory/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>Store</servlet-name>
+        <url-pattern>/Store/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>SecureStore</servlet-name>
+        <url-pattern>/SecureStore/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>/topolik/*</url-pattern>
+    </servlet-mapping>
+
+</web-app>
