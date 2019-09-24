@@ -39,9 +39,9 @@ Vagrant.configure(2) do |config|
 
   # Claim success
   config.vm.provision "shell", run: "always", inline: <<-EOF
-    echo "Node   : http://localhost:3002"
-    echo "Java   : http://localhost:3003/ideabox"
-    echo "Python : http://localhost:3005"
+    echo "Node   : http://localhost:3001"
+    echo "Java   : http://localhost:3002/ideabox"
+    echo "Python : http://localhost:3004"
   EOF
 
 
