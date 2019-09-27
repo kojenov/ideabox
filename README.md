@@ -17,9 +17,9 @@ A virtual machine with several web applications to demonstrate insecure deserial
 
 If the installation goes well (if it doesn't, let me know!), three web applications are available:
 
-- Cookie spoofing (Node.js) - http://localhost:3002
-- Denial of service (Java) - http://localhost:3003/ideabox
-- Remote code execution (Python) - http://localhost:3005
+- Cookie spoofing (Node.js) - http://localhost:3001
+- Denial of service (Java) - http://localhost:3002/ideabox
+- Remote code execution (Python) - http://localhost:3004
 
 
 
