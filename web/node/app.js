@@ -20,15 +20,15 @@ app.get('/secure', function (req, res) {
 
 function greeting(user, res) {
   if (user == null) {
-     res.status(403);
-     content = 'Unauthorized';
+    res.status(403);
+    content = 'Unauthorized';
   }
   else {
-     if (user['role'] === 'admin') {
-       content = user['name'] + '... welcome, administrator!'
-     } else {
-       content = user['name'] + '... sorry, you are not an admin'
-     }
+    if (user['role'] === 'admin') {
+      content = user['name'] + '... welcome, administrator!'
+    } else {
+      content = user['name'] + '... sorry, you are not an admin'
+    }
   }
   res.render('user', {'content': content});
 }
