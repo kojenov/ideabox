@@ -65,8 +65,15 @@ mv /tmp/context.xml /opt/tomcat/webapps/manager/META-INF/context.xml
 
 cd /home/vagrant/web/python
 echo "Installing Python 3..."
-apt-get install -yq python3-venv gunicorn netcat-traditional
+apt-get install -yq python3-venv gunicorn
 python3 -m venv venv
 . venv/bin/activate
 pip install Flask
 pip install gunicorn
+
+
+### Miscellaneous
+
+echo "Installing traditional netcat..."
+apt-get install -yq netcat-traditional
+update-alternatives --set nc /bin/nc.traditional

