@@ -4,6 +4,7 @@ import javax.servlet.http.*;
 
 public class SecureStore extends HttpServlet {
 
+  // the store front
   public void doGet(HttpServletRequest request, HttpServletResponse response)
                     throws ServletException, IOException {
     request.getRequestDispatcher("/WEB-INF/securestore.jsp").forward(request, response);
@@ -14,20 +15,25 @@ public class SecureStore extends HttpServlet {
     PrintWriter out = response.getWriter();
 
     Part filePart   = request.getPart("items");
-    InputStream fin = filePart.getInputStream();
+    InputStream is = filePart.getInputStream();
 
     try {
-      // use a new class instead of ObjectInputStream:
-      SafeObjectInputStream oin = new SafeObjectInputStream(fin);
+      // use something better than plain ObjectInputStream
+      SafeObjectInputStream sois = new SafeObjectInputStream(is);
 
-      Items items = (Items) oin.readObject();   // deserialization
-      oin.close();
-      fin.close();
+      // actual deserialization; actually safe this time
+      Items items = (Items) sois.readObject();
+      
+      // close the streams
+      sois.close();
+      is.close();
 
+      // generate a response; should I fix the XSS? ;)
       request.setAttribute("message", "Just sold " + items);
       request.getRequestDispatcher("/WEB-INF/securestore.jsp").forward(request, response);
 
     } catch (InvalidClassException e) {
+      // invalid class? let the user know!
       request.setAttribute("message", "Sorry, we do not accept " + e.classname);
       request.getRequestDispatcher("/WEB-INF/securestore.jsp").forward(request, response);
 
@@ -36,16 +42,19 @@ public class SecureStore extends HttpServlet {
     }
   }
 
+  
   private class SafeObjectInputStream extends ObjectInputStream {
 
     public SafeObjectInputStream(InputStream inputStream) throws IOException {
       super(inputStream);
     }
 
+    // look-ahead deserialization
     @Override
     protected Class<?> resolveClass(ObjectStreamClass input)
                                     throws IOException, ClassNotFoundException
     {
+      // is the submitted class the one we expect?
       if (!input.getName().equals(Items.class.getName())) {
         throw new InvalidClassException(input.getName(), "Unsupported class");
       }

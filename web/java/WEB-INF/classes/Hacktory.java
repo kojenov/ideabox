@@ -5,6 +5,7 @@ import javax.servlet.http.*;
 
 public class Hacktory extends HttpServlet {
 
+  // handle HTTP requests
   public void doGet(HttpServletRequest request, HttpServletResponse response)
                     throws ServletException, IOException {
 
@@ -13,14 +14,17 @@ public class Hacktory extends HttpServlet {
     try {
       switch (path) {
         case "/string.ser":
+          // serialized a string
           serializeAnything(new String("this is a joke"),
                             response, "string.ser");
           break;
         case "/cpu-bomb.ser":
+          // serialize a CPU DoS payload
           serializeAnything(CPUbomb(),
                             response, "cpu-bomb.ser");
           break;
         default:
+          // display links to the downloadable objects
           request.getRequestDispatcher("/WEB-INF/hacktory.jsp").forward(request, response);
       }
     } catch (Exception e) {
@@ -30,18 +34,28 @@ public class Hacktory extends HttpServlet {
     }
   }
 
+  // serialize an object and stuff it into HTTP response
   private void serializeAnything(Object obj, HttpServletResponse response, String fname)
                                  throws IOException {
+    // necessary headers
     response.setContentType("application/x-binary");
     response.setHeader("Content-Disposition", "attachment; filename=" + fname);
 
-    OutputStream rout       = response.getOutputStream();
-    ObjectOutputStream oout = new ObjectOutputStream(rout);
-    oout.writeObject(obj);   // serialization
-    oout.close();
-    rout.close();
+    // output to HTTP response
+    OutputStream        os = response.getOutputStream();
+    
+    // ObjectOutputStream so we could serialize
+    ObjectOutputStream oos = new ObjectOutputStream(os);
+    
+    // actual serialization
+    oos.writeObject(obj);
+    
+    // close and exit
+    oos.close();
+    os.close();
   }
 
+  // borrowed from https://owasp.org/www-community/vulnerabilities/Deserialization_of_untrusted_data
   @SuppressWarnings("unchecked")
   static Object CPUbomb() {
     Set root = new HashSet();
