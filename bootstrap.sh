@@ -40,6 +40,13 @@ cd webapps/ideabox/WEB-INF/classes
 export CLASSPATH=/opt/tomcat/lib/servlet-api.jar:.
 javac *.java
 
+# get Apache Commons libraries
+mkdir -p /opt/tomcat/webapps/ideabox/WEB-INF/lib
+cd /opt/tomcat/webapps/ideabox/WEB-INF/lib
+curl -s https://archive.apache.org/dist/commons/beanutils/binaries/commons-beanutils-1.9.2-bin.tar.gz | tar xzf - --strip-components 1 commons-beanutils-1.9.2/commons-beanutils-1.9.2.jar
+curl -s https://mirrors.ocf.berkeley.edu/apache//commons/collections/binaries/commons-collections-3.2.2-bin.tar.gz | tar xzf - --strip-components 1 commons-collections-3.2.2/commons-collections-3.2.2.jar
+curl -s https://apache.mirrors.lucidnetworks.net//commons/logging/binaries/commons-logging-1.2-bin.tar.gz | tar xzf - --strip-components 1 commons-logging-1.2/commons-logging-1.2.jar
+
 # set permissions
 chgrp -R tomcat /opt/tomcat
 cd /opt/tomcat
