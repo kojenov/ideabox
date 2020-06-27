@@ -24,7 +24,7 @@ If the installation goes well (if it doesn't, let me know!), three web applicati
 
 ### Cookie spoofing (Node.js, JSON)
 
-1. Go to http://localhost:3002
+1. Go to http://localhost:3001
 2. Click on *insecure*
    - Open browser developer tools and analyze the `user` cookie
       - What does it look like?
@@ -38,7 +38,7 @@ If the installation goes well (if it doesn't, let me know!), three web applicati
 
 ### Denial of service (Java, native serialization)
 
-1. Go to http://localhost:3003/ideabox
+1. Go to http://localhost:3002/ideabox
 2. Go to *Factory* 
    - Download an object and store it on disk.
    - What does it look like? (native Java serialized object).
@@ -56,7 +56,7 @@ If the installation goes well (if it doesn't, let me know!), three web applicati
 
 ### Remote code execution (Python, pickle)
 
-1. Go to http://localhost:3005
+1. Go to http://localhost:3004
 2. Look at the `session` cookie. Does it look like, maybe, Python serialized data?
 3. Go to `web/python` and generate a payload:
    `python3 payload.py`
